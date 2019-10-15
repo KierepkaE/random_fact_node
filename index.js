@@ -21,7 +21,12 @@ fetch(`http://numbersapi.com/${number}/${type}?json`)
       console.log('Only numbers are valid.');
       process.exit();
     }
-    return response.json()
+    if (response.ok) {
+      return response.json()
+    } else {
+      throw new Error("upsss something went wrong . . . " + response.status)
+    }
+
   })
   .then(data => console.log(data.text))
   .catch(err => console.log("Error:", err))
